@@ -70,7 +70,36 @@
             const seoulTemp = data.temp
             $('#temp').text(seoulTemp)
         })
+      listing();
     })
+    function listing() {
+      fetch('http://spartacodingclub.shop/web/api/movie').then(res => res.json()).then(data => {
+        console.log(data);
+        const movies = data.movies;
+        $('#cards-box').empty('');
+        movies.forEach(element => {
+          console.log(element.title);
+          const title = element.title;
+          const desc = element.desc;
+          const img = element.image;
+          const star = element.star;
+          const comment = element.comment;
+          const drawHtml = `<div class="col">
+                              <div class="card h-100">
+                                  <img src="${img}" class="card-img-top" alt="...">
+                                  <div class="card-body">
+                                      <h5 class="card-title">${title}</h5>
+                                      <p class="card-text">${desc}</p>
+                                      <p>${'⭐'.repeat(star)}</p>
+                                      <p class="mycomment">${comment}</p>
+                                  </div>
+                              </div>
+                          </div>
+          `
+          $('#cards-box').append(drawHtml)
+        });
+      })
+    }
   </script>
 </head>
 <body>
@@ -100,51 +129,8 @@
     </div>
     <div class="card-wrapper">
       <div class="mycards">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">영화 제목이 들어갑니다.</h5>
-                        <p class="card-text">여기에 코멘트가 들어갑니다.</p>
-                        <p>⭐⭐⭐</p>
-                        <p class="mycomment">여기에 나의 의견을 쓰면 되겠죠</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">영화 제목이 들어갑니다.</h5>
-                        <p class="card-text">여기에 코멘트가 들어갑니다.</p>
-                        <p>⭐⭐⭐</p>
-                        <p class="mycomment">여기에 나의 의견을 쓰면 되겠죠</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">영화 제목이 들어갑니다.</h5>
-                        <p class="card-text">여기에 코멘트가 들어갑니다.</p>
-                        <p>⭐⭐⭐</p>
-                        <p class="mycomment">여기에 나의 의견을 쓰면 되겠죠</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">영화 제목이 들어갑니다.</h5>
-                        <p class="card-text">여기에 코멘트가 들어갑니다.</p>
-                        <p>⭐⭐⭐</p>
-                        <p class="mycomment">여기에 나의 의견을 쓰면 되겠죠</p>
-                    </div>
-                </div>
-            </div>
+        <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
+          
         </div>
     </div>
   </div>
